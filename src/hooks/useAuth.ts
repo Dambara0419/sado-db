@@ -39,7 +39,23 @@ export function useAuth() {
   }
 
   useEffect(() => {
+    // 初期セッションをgetSession()で確実に取得
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
+      try {
+        const u = session?.user ?? null
+        setUser(u)
+        if (u && !u.is_anonymous) {
+          await fetchProfile(u.id)
+        } else {
+          setProfile(null)
+        }
+      } finally {
+        setLoading(false)
+      }
+    })
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'INITIAL_SESSION') return
       try {
         const u = session?.user ?? null
         setUser(u)
@@ -52,8 +68,8 @@ export function useAuth() {
         } else {
           setProfile(null)
         }
-      } finally {
-        setLoading(false)
+      } catch {
+        // ignore
       }
     })
     return () => subscription.unsubscribe()
