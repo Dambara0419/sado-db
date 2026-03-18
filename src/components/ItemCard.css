@@ -1,0 +1,121 @@
+.item-card {
+  background: var(--bg-card);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+.item-card:hover {
+  box-shadow: 0 4px 16px rgba(107, 79, 58, 0.14);
+  transform: translateY(-2px);
+}
+
+.item-card-image {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #f0e8e0;
+}
+
+.item-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.item-card:hover .item-card-image img {
+  transform: scale(1.03);
+}
+
+.item-card-no-image {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  background: linear-gradient(135deg, #f0e8e0, #e8ddd4);
+}
+
+.item-card-private-badge {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 100px;
+  font-weight: 500;
+}
+
+.item-card-body {
+  padding: 0.9rem 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.item-card-category {
+  align-self: flex-start;
+  margin-bottom: 0.2rem;
+}
+
+.item-card-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.item-card-author,
+.item-card-kiln {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.item-card-description {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.5;
+  margin-top: 0.2rem;
+}
+
+.item-card-owner {
+  margin-top: auto;
+  padding-top: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.owner-separator {
+  display: block;
+  height: 1px;
+  background: var(--border);
+}
+
+.owner-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.item-card-actions {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--border);
+  background: #faf7f4;
+}

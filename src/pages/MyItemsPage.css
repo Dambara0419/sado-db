@@ -1,0 +1,90 @@
+.my-items-page {
+  min-height: calc(100vh - 64px);
+}
+
+.my-items-header {
+  background: linear-gradient(135deg, #8a6248 0%, var(--accent) 100%);
+  color: #fff;
+  padding: 2.5rem 1.5rem;
+}
+
+.my-items-header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.my-items-header h1 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.my-items-header p {
+  opacity: 0.85;
+  font-size: 0.95rem;
+}
+
+.my-items-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.my-items-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.my-items-filters {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.filter-btn {
+  padding: 0.4rem 0.9rem;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: var(--font);
+}
+
+.filter-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.filter-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.my-items-actions {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.my-items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+@media (max-width: 600px) {
+  .my-items-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .my-items-grid {
+    grid-template-columns: 1fr;
+  }
+}

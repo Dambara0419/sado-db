@@ -1,0 +1,131 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+  box-shadow: 0 1px 4px rgba(107, 79, 58, 0.08);
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.header-logo-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.header-logo-text {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.nav-btn {
+  padding: 0.4rem 0.9rem;
+  background: none;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color 0.2s, background-color 0.2s;
+  font-weight: 500;
+}
+
+.nav-btn:hover {
+  color: var(--accent);
+  background-color: #f0e8e0;
+}
+
+.nav-btn.active {
+  color: var(--accent);
+  background-color: #f0e8e0;
+  font-weight: 600;
+}
+
+.header-auth {
+  flex-shrink: 0;
+}
+
+.header-user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.header-username {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.header-username.guest {
+  font-style: italic;
+}
+
+.admin-badge {
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.7rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 100px;
+  font-weight: 600;
+}
+
+.btn-sm {
+  padding: 0.35rem 0.9rem;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 640px) {
+  .header-logo-text {
+    display: none;
+  }
+
+  .header-inner {
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  .nav-btn {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.82rem;
+  }
+}

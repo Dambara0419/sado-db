@@ -1,0 +1,40 @@
+.item-form-modal {
+  max-width: 600px;
+  width: 100%;
+}
+
+.item-form-modal h2 {
+  color: var(--accent);
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.item-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+@media (max-width: 480px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.required {
+  color: var(--danger);
+}
+
+.item-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
