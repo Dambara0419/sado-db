@@ -9,7 +9,6 @@ interface HeaderProps {
   user: User | null
   username: string | null
   isAdmin: boolean
-  isGuest: boolean
   onShowAuth: () => void
   onSignOut: () => void
 }
@@ -20,7 +19,6 @@ export default function Header({
   user,
   username,
   isAdmin,
-  isGuest,
   onShowAuth,
   onSignOut,
 }: HeaderProps) {
@@ -39,7 +37,7 @@ export default function Header({
           >
             公開一覧
           </button>
-          {user && !isGuest && (
+          {user && (
             <button
               className={`nav-btn ${currentPage === 'my-items' ? 'active' : ''}`}
               onClick={() => onNavigate('my-items')}
@@ -60,14 +58,10 @@ export default function Header({
         <div className="header-auth">
           {user ? (
             <div className="header-user">
-              {isGuest ? (
-                <span className="header-username guest">ゲスト</span>
-              ) : (
-                <span className="header-username">
-                  {isAdmin && <span className="admin-badge">管理者</span>}
-                  {username}
-                </span>
-              )}
+              <span className="header-username">
+                {isAdmin && <span className="admin-badge">管理者</span>}
+                {username}
+              </span>
               <button className="btn btn-ghost btn-sm" onClick={onSignOut}>
                 ログアウト
               </button>

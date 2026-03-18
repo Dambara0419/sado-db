@@ -5,12 +5,11 @@ interface AuthModalProps {
   onClose: () => void
   onSignIn: (email: string, password: string) => Promise<string | null>
   onSignUp: (username: string, email: string, password: string) => Promise<string | null>
-  onSignInAsGuest: () => Promise<string | null>
 }
 
 type AuthMode = 'login' | 'register'
 
-export default function AuthModal({ onClose, onSignIn, onSignUp, onSignInAsGuest }: AuthModalProps) {
+export default function AuthModal({ onClose, onSignIn, onSignUp }: AuthModalProps) {
   const [mode, setMode] = useState<AuthMode>('login')
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
@@ -68,17 +67,6 @@ export default function AuthModal({ onClose, onSignIn, onSignUp, onSignInAsGuest
         setPassword('')
         setConfirmPassword('')
       }
-    }
-  }
-
-  const handleGuest = async () => {
-    setLoading(true)
-    const err = await onSignInAsGuest()
-    setLoading(false)
-    if (err) {
-      setError(err)
-    } else {
-      onClose()
     }
   }
 
@@ -164,18 +152,6 @@ export default function AuthModal({ onClose, onSignIn, onSignUp, onSignInAsGuest
             {loading ? '処理中...' : mode === 'login' ? 'ログイン' : '登録'}
           </button>
         </form>
-
-        <div className="auth-divider">
-          <span>または</span>
-        </div>
-
-        <button
-          className="btn btn-ghost auth-guest-btn"
-          onClick={handleGuest}
-          disabled={loading}
-        >
-          ゲスト閲覧
-        </button>
 
         <button className="auth-close-btn" onClick={onClose} aria-label="閉じる">
           ✕
