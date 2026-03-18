@@ -26,21 +26,15 @@ export function useAuth() {
   }
 
   useEffect(() => {
-    // 初期セッションをgetSession()で確実に取得（profileは非同期で後から読む）
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       const u = session?.user ?? null
       setUser(u)
-      setLoading(false)
-      if (u && !u.is_anonymous) fetchProfile(u.id)
-    })
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (event === 'INITIAL_SESSION') return
-      const u = session?.user ?? null
-      setUser(u)
-      if (u && !u.is_anonymous) {
-        await fetchProfile(u.id)
-      } else {
+      if (event === 'INITIAL_SESSION') {
+        setLoading(false)
+        if (u && !u.is_anonymous) fetchProfile(u.id)
+      } else if (event === 'SIGNED_IN') {
+        if (u && !u.is_anonymous) fetchProfile(u.id)
+      } else if (event === 'SIGNED_OUT') {
         setProfile(null)
       }
     })
