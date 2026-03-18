@@ -25,51 +25,23 @@ export function useAuth() {
     }
   }
 
-  const ensureOAuthProfile = async (u: import('@supabase/supabase-js').User): Promise<void> => {
-    const { data } = await supabase.from('profiles').select('id').eq('id', u.id).single()
-    if (!data) {
-      const displayName =
-        u.user_metadata?.full_name ||
-        u.user_metadata?.name ||
-        u.email?.split('@')[0] ||
-        'user'
-      await supabase.from('profiles').insert({ id: u.id, username: displayName, role: 'user' })
-    }
-    await fetchProfile(u.id)
-  }
-
   useEffect(() => {
-    // 初期セッションをgetSession()で確実に取得
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
-      try {
-        const u = session?.user ?? null
-        setUser(u)
-        if (u && !u.is_anonymous) {
-          await fetchProfile(u.id)
-        } else {
-          setProfile(null)
-        }
-      } finally {
-        setLoading(false)
-      }
+    // 初期セッションをgetSession()で確実に取得（profileは非同期で後から読む）
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      const u = session?.user ?? null
+      setUser(u)
+      setLoading(false)
+      if (u && !u.is_anonymous) fetchProfile(u.id)
     })
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (event === 'INITIAL_SESSION') return
-      try {
-        const u = session?.user ?? null
-        setUser(u)
-        if (u && !u.is_anonymous) {
-          if (event === 'SIGNED_IN' && u.app_metadata?.provider === 'google') {
-            await ensureOAuthProfile(u)
-          } else {
-            await fetchProfile(u.id)
-          }
-        } else {
-          setProfile(null)
-        }
-      } catch {
-        // ignore
+      const u = session?.user ?? null
+      setUser(u)
+      if (u && !u.is_anonymous) {
+        await fetchProfile(u.id)
+      } else {
+        setProfile(null)
       }
     })
     return () => subscription.unsubscribe()
@@ -103,20 +75,6 @@ export function useAuth() {
     }
   }
 
-  const signInWithGoogle = async (): Promise<string | null> => {
-    try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: { redirectTo: window.location.origin },
-      })
-      if (error) return error.message
-      return null
-    } catch (e: unknown) {
-      if (e instanceof Error) return e.message
-      return 'Googleログインに失敗しました'
-    }
-  }
-
   const signInAsGuest = async (): Promise<string | null> => {
     try {
       const { error } = await supabase.auth.signInAnonymously()
@@ -143,7 +101,6 @@ export function useAuth() {
     isGuest,
     signUp,
     signIn,
-    signInWithGoogle,
     signInAsGuest,
     signOut,
   }
