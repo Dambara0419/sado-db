@@ -10,7 +10,7 @@ import ItemDetailPage from './pages/ItemDetailPage'
 import AdminPage from './pages/AdminPage'
 
 export default function App() {
-  const { user, profile, loading, isAdmin, signIn, signUp, signOut } = useAuth()
+  const { user, profile, loading, isAdmin, signIn, signUp, signInWithGoogle, signOut } = useAuth()
   const [page, setPage] = useState<Page>('feed')
   const [showAuth, setShowAuth] = useState(false)
   const [selectedItem, setSelectedItem] = useState<Item | null>(null)
@@ -103,6 +103,7 @@ export default function App() {
           onClose={() => setShowAuth(false)}
           onSignIn={signIn}
           onSignUp={(username, email, password) => signUp(username, email, password)}
+          onSignInWithGoogle={signInWithGoogle}
         />
       )}
     </div>
